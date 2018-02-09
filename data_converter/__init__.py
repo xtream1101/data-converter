@@ -31,7 +31,7 @@ def _check_input_file(file, output_type):
         output_type (str): file extension without the `.` of the output data
 
     Returns:
-        str: Absolute file path
+        str: Absolute file path of input file
 
     Raises:
         FileNotFoundError: If the file does not exists
@@ -79,8 +79,29 @@ def _is_file_ext_supported(file_ext):
 
 def convert(input_file, to_format):
     """Convert input_file into another format
+
+    Raises:
+        FileNotFoundError & UserWarning: from the function `_check_input_file`
+        ValueError
+
+    Returns:
+        str: Absolute file path of output file
+
     """
-    pass
+    if not _is_file_ext_supported(to_format):
+        raise ValueError("File extension is not supported: {ext}".format(ext=to_format))
+
+    input_file = _check_input_file(input_file, to_format)
+    input_ext = _get_file_ext(input_file)
+
+    # Read in data
+    input_data = converters[input_ext].read_file(input_file)
+
+    # Write out data
+    output_file = rreplace(input_file, input_ext, to_format)
+    converters[to_format].write_file(input_data, output_file)
+
+    return output_file
 
 
 def cli():
@@ -91,25 +112,11 @@ def cli():
 
     """
     parser = argparse.ArgumentParser(description='Convert data files')
-    parser.add_argument('-t', '--to', help='Format to convert to', required=True)
-    parser.add_argument('input_file', help='File to convert from')
+    parser.add_argument('-t', '--to', help='Output format', required=True)
+    parser.add_argument('input_file', help='File to convert')
     args = parser.parse_args()
 
-    if not _is_file_ext_supported(args.to):
-        parser.error("File extension is not supported: {ext}".format(ext=args.to))
-
     try:
-        input_file = _check_input_file(args.input_file, args.to)
-    except (FileNotFoundError, UserWarning) as e:
+        print(convert(args.input_file, args.to))
+    except (FileNotFoundError, UserWarning, ValueError) as e:
         parser.error(str(e))
-
-    input_ext = _get_file_ext(input_file)
-
-    # Read in data
-    input_data = converters[input_ext].read_file(input_file)
-
-    # Write out data
-    output_file = rreplace(input_file, input_ext, args.to)
-    converters[args.to].write_file(input_data, output_file)
-
-    print(output_file)
