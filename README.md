@@ -6,7 +6,7 @@ Convert data files between different formats
 
 
 ### Install
-Python: `pip install data-converter`
+Python: `pip install data-converter`  
 Brew: `coming soon...`
 
 
