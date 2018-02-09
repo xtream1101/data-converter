@@ -4,7 +4,7 @@ from distutils.core import setup
 setup(
     name='data-converter',
     packages=['data_converter'],
-    version='0.0.2',
+    version='0.0.4',
     description='Convert most data file to other file formats',
     author='Eddy Hintze',
     author_email="eddy@hintze.co",
