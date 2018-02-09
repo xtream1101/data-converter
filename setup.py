@@ -4,13 +4,14 @@ from distutils.core import setup
 setup(
     name='data-converter',
     packages=['data_converter'],
-    version='0.0.1',
-    description='Convert any data file to any other',
+    version='0.0.2',
+    description='Convert most data file to other file formats',
     author='Eddy Hintze',
     author_email="eddy@hintze.co",
     url="https://github.com/xtream1101/data-converter",
     license='MIT',
     classifiers=[
+        "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 3",
         "Development Status :: 4 - Beta",
         "Operating System :: OS Independent",
