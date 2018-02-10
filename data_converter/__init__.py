@@ -1,4 +1,3 @@
-import os
 import argparse
 from data_converter import utils
 
@@ -21,11 +20,11 @@ def convert(input_file, to_format):
     input_ext = utils._get_file_ext(input_file)
 
     # Read in data
-    input_data = converters[input_ext].read_file(input_file)
+    input_data = utils.converters[input_ext].read_file(input_file)
 
     # Write out data
     output_file = utils.rreplace(input_file, input_ext, to_format)
-    converters[to_format].write_file(input_data, output_file)
+    utils.converters[to_format].write_file(input_data, output_file)
 
     return output_file
 

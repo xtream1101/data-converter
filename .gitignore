@@ -1,4 +1,7 @@
 *.egg-info
 *__pycache__
+*.tox/
 *dist/
+*docs/
 *MANIFEST
+*.pytest_cache/

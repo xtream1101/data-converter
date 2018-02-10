@@ -2,10 +2,10 @@ from distutils.core import setup
 
 try:
     import pypandoc
-    long_description = pypandoc.convert('README.md', 'rst')
+    long_description = pypandoc.convert('README.md', 'rst', format='md')
 except (IOError, ImportError) as e:
     print(str(e))
-    long_description = open('README.md').read()
+    long_description = ''
 
 setup(
     name='data-converter',
@@ -25,9 +25,8 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Utilities",
     ],
-    install_requires=[
-                      ],
-    entry_points = {
+    install_requires=[],
+    entry_points={
         'console_scripts': [
             'data-converter=data_converter:cli',
         ],
