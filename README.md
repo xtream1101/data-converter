@@ -36,7 +36,6 @@ output_path = data_converter.convert("~/some/data/file.csv", "json")
 print(output_path)  # Print the full path of the new json file
 
 # Read in any supported data format into a python object
-# TODO: Add option to say if file has a header or not to know how to read it in, either a list(dicts) or list(list)
 data = data_converter.csv_helper.read_file("~/some/data/test.csv")
 
 ```
