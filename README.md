@@ -37,9 +37,20 @@ print(output_path)  # Print the full path of the new json file
 
 # Read in any supported data format into a python object
 data = data_converter.csv_helper.read_file("~/some/data/test.csv")
-
 ```
 
+#### Arguments for each file type
+- **json**
+    - **Reading/Converting from**
+        - N/A
+    - **Writing/Converting to**
+        - N/A
+
+- **csv**
+    - **Reading/Converting from**
+        - **has_header** _(bool)_ - _Default: True_ - The first row in the csv is the header
+    - **Writing/Converting to**
+        - **has_header** _(bool)_ - _Default: True_ - Write first row to the csv as the header
 
 ### Currently supported file types
 - json

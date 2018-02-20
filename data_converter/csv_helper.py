@@ -2,7 +2,7 @@ import csv
 from data_converter import utils
 
 
-def read_file(input_file, header=True):
+def read_file(input_file, header=True, **kwargs):
     """Write a list of lists/dics to a csv file
 
     Args:
@@ -11,6 +11,7 @@ def read_file(input_file, header=True):
 
     Named Args:
         header (bool): Default `True`. If the csv file has a header
+        **kwargs: Catches all other args that were passed but do not care about
 
     Returns:
         str: Absolute file path of the saved file
@@ -33,7 +34,7 @@ def read_file(input_file, header=True):
     return input_data
 
 
-def write_file(output_data, output_file, header=True):
+def write_file(output_data, output_file, header=True, **kwargs):
     """Write a list of lists/dics to a csv file
 
     Args:
@@ -42,6 +43,7 @@ def write_file(output_data, output_file, header=True):
 
     Named Args:
         header (bool): Default `True`. If the csv file has a header
+        **kwargs: Catches all other args that were passed but do not care about
 
     Returns:
         str: Absolute file path of the saved file

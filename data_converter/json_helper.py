@@ -2,12 +2,15 @@ import json
 from data_converter import utils
 
 
-def read_file(input_file):
+def read_file(input_file, **kwargs):
     """Write a list of lists/dics to a json file
 
     Args:
         output_data (list): list of lists/dicts of data to be saved
         output_file (str): Path to json file
+
+    Named Args:
+        **kwargs: Catches all other args that were passed but do not care about
 
     Returns:
         str: Absolute file path of the saved file
@@ -24,12 +27,15 @@ def read_file(input_file):
     return input_data
 
 
-def write_file(output_data, output_file):
+def write_file(output_data, output_file, **kwargs):
     """Write a list of lists/dics to a json file
 
     Args:
         output_data (list): list of lists/dicts of data to be saved
         output_file (str): Path to json file
+
+    Named Args:
+        **kwargs: Catches all other args that were passed but do not care about
 
     Returns:
         str: Absolute file path of the saved file
