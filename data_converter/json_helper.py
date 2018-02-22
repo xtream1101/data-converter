@@ -7,7 +7,6 @@ def read_file(input_file, **kwargs):
 
     Args:
         output_data (list): list of lists/dicts of data to be saved
-        output_file (str): Path to json file
 
     Named Args:
         **kwargs: Catches all other args that were passed but do not care about
@@ -38,8 +37,8 @@ def write_file(output_data, output_file, **kwargs):
     Named Args:
         **kwargs: Catches all other args that were passed but do not care about
 
-    Returns:
-        str: Absolute file path of the saved file
+    Returns (via @utils._create_file_object)::
+        str/file: Absolute file path of the saved file
 
     """
     json.dump(output_data, output_file)

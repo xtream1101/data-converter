@@ -7,7 +7,6 @@ def read_file(input_file, header=True, **kwargs):
 
     Args:
         output_data (list): list of lists/dicts of data to be saved
-        output_file (str): Path to csv file
 
     Named Args:
         header (bool): Default `True`. If the csv file has a header
@@ -47,7 +46,7 @@ def write_file(output_data, output_file, header=True, **kwargs):
         **kwargs: Catches all other args that were passed but do not care about
 
     Returns (via @utils._create_file_object):
-        str: Absolute file path of the saved file or the file object. Depending what was passed in
+        str/file: Absolute file path of the saved file or the file object. Depending what was passed in
 
     """
     if header is False or isinstance(output_data[0], (list, tuple)):
