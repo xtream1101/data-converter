@@ -34,38 +34,35 @@ def read_file(input_file, header=True, **kwargs):
     return input_data
 
 
+@utils._create_file_object('write', 1)
 def write_file(output_data, output_file, header=True, **kwargs):
     """Write a list of lists/dics to a csv file
 
     Args:
         output_data (list): list of lists/dicts of data to be saved
-        output_file (str): Path to csv file
+        output_file (str/file): Path to output file. Or filetype object to write the data to
 
     Named Args:
         header (bool): Default `True`. If the csv file has a header
         **kwargs: Catches all other args that were passed but do not care about
 
-    Returns:
-        str: Absolute file path of the saved file
+    Returns (via @utils._create_file_object):
+        str: Absolute file path of the saved file or the file object. Depending what was passed in
 
     """
-    output_file = utils._get_absolute_path(output_file)
-    with open(output_file, 'w') as csv_file:
-        if header is False or isinstance(output_data[0], (list, tuple)):
-            writer = csv.writer(csv_file)
-            if isinstance(output_data[0], dict):
-                # If trying to write a list of dicts, but do not want the header row
-                for row in output_data:
-                    writer.writerow(row.values())
-            else:
-                writer.writerows(output_data)
-
+    if header is False or isinstance(output_data[0], (list, tuple)):
+        writer = csv.writer(output_file)
+        if isinstance(output_data[0], dict):
+            # If trying to write a list of dicts, but do not want the header row
+            for row in output_data:
+                writer.writerow(row.values())
         else:
-            # Write a lits of dicts with header on first row
-            field_names = output_data[0].keys()
-            writer = csv.DictWriter(csv_file, fieldnames=field_names)
-            writer.writeheader()
-            for data in output_data:
-                writer.writerow(data)
+            writer.writerows(output_data)
 
-    return output_file
+    else:
+        # Write a lits of dicts with header on first row
+        field_names = output_data[0].keys()
+        writer = csv.DictWriter(output_file, fieldnames=field_names)
+        writer.writeheader()
+        for data in output_data:
+            writer.writerow(data)

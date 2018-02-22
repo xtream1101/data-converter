@@ -27,12 +27,13 @@ def read_file(input_file, **kwargs):
     return input_data
 
 
+@utils._create_file_object('write', 1)
 def write_file(output_data, output_file, **kwargs):
     """Write a list of lists/dics to a json file
 
     Args:
         output_data (list): list of lists/dicts of data to be saved
-        output_file (str): Path to json file
+        output_file (str/file): Path to output file. Or filetype object to write the data to
 
     Named Args:
         **kwargs: Catches all other args that were passed but do not care about
@@ -41,8 +42,4 @@ def write_file(output_data, output_file, **kwargs):
         str: Absolute file path of the saved file
 
     """
-    output_file = utils._get_absolute_path(output_file)
-    with open(output_file, 'w') as json_file:
-        json.dump(output_data, json_file)
-
-    return output_file
+    json.dump(output_data, output_file)
