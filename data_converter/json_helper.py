@@ -38,7 +38,7 @@ def write_file(output_data, output_file, **kwargs):
         **kwargs: Catches all other args that were passed but do not care about
 
     Returns (via @utils._create_file_object)::
-        str/file: Absolute file path of the saved file
+        str/file: Absolute file path of the saved file or the file object. Depending what was passed in
 
     """
     json.dump(output_data, output_file)
