@@ -9,7 +9,7 @@ converters = {'csv': csv_helper,
               }
 
 
-def convert(input_file, to, output_file=None):
+def convert(input_file, to, output_file=None, chunk_size=None):
     """Convert input_file into another format
 
     Args:
@@ -18,6 +18,7 @@ def convert(input_file, to, output_file=None):
 
     Keyword Args:
         output_file (str): Where to save the converted data to, if None it wil output to stdout
+        chunk_size (int): The max number of rows to have in each file
 
     Raises:
         FileNotFoundError & UserWarning: from the function `_check_input_file`
@@ -44,7 +45,7 @@ def convert(input_file, to, output_file=None):
         # If blank string, then output the file to the same path as the input just with the new ext
         output_file = utils.rreplace(input_file, input_ext, to)
 
-    return converters[to].write_file(input_data, output_file)
+    return converters[to].write_file(input_data, output_file, chunk_size=chunk_size)
 
 
 def cli():
@@ -58,12 +59,17 @@ def cli():
     parser.add_argument('-i', '--input-file', help='File to convert', required=True)
     parser.add_argument('-t', '--to', help='Output format', required=True)
     parser.add_argument('-o', '--output-file', help='Output file', nargs='?')
+    parser.add_argument('-c', '--chunk-size', help='Max rows per output file', default=None, type=int)
     args = parser.parse_args()
 
     try:
-        output = convert(args.input_file, args.to, args.output_file)
+        output = convert(args.input_file, args.to, args.output_file, chunk_size=args.chunk_size)
         if isinstance(output, str):
             # Only print the output if it is the file path, not a file object
             print(output)
+        elif isinstance(output, list) and isinstance(output[0], str):
+            for file in output:
+                print(file)
+
     except (FileNotFoundError, UserWarning, ValueError) as e:
         parser.error(str(e))

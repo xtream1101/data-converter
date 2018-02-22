@@ -11,6 +11,83 @@ converters = {'csv': csv_helper,
               }
 
 
+def _chunks_of(max_chunk_size, list_to_chunk):
+    """Yields the list with a max size of max_chunk_size
+
+    Args:
+        max_chunk_size (int): Max rows a chunk can be
+        list_to_chunk (list): List to break up into smaller chunks
+
+    Yields:
+        list: list of data with a max length max_chunk_size
+
+    """
+    for i in range(0, len(list_to_chunk), max_chunk_size):
+        yield list_to_chunk[i:i + max_chunk_size]
+
+
+def _create_write_file_object(func):
+    """
+    """
+    def wrapper(*args, **kwargs):
+        args = list(args)
+        file = args[1]
+
+        chunk_size = kwargs.get('chunk_size', None)
+
+        if isinstance(file, str):
+            is_file_path = True
+        elif hasattr(file, 'write'):
+            is_file_path = False
+        else:
+            raise ValueError("Invalid file path or object")
+
+        if chunk_size is None:
+            if is_file_path is True:
+                # Create a file object if one was not passed in
+                file = _get_absolute_path(file)
+                save_file = open(file, 'w')
+            else:
+                save_file = file
+
+            args[1] = save_file
+            func(*args, **kwargs)
+
+            if is_file_path is True:
+                save_file.close()
+                output = file
+            else:
+                output = save_file
+
+        else:
+            # Chunk up the file
+            output = []
+            for i, chunk in enumerate(_chunks_of(chunk_size, args[0]), start=1):
+                if is_file_path is True:
+                    # Create a file object if one was not passed in
+                    full_path = _get_absolute_path(file)
+                    ext = '.' + _get_file_ext(file)
+                    save_file_name = full_path.replace(ext, '_' + str(i) + ext)
+                    save_file = open(save_file_name, 'w')
+                else:
+                    save_file = file.copy()
+
+                args[0] = chunk
+                args[1] = save_file
+                func(*args, **kwargs)
+
+                if is_file_path is True:
+                    save_file.close()
+                    output.append(save_file_name)
+                else:
+                    output.append(save_file)
+
+        return output
+
+    return wrapper
+
+
+
 def _create_file_object(action, file_index):
     """
 
