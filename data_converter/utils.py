@@ -1,11 +1,13 @@
 import os
 from data_converter import csv_helper
 from data_converter import json_helper
+from data_converter import xlsx_helper
 
 supported_file_types = ['json', 'csv']
 
 converters = {'csv': csv_helper,
               'json': json_helper,
+              'xlsx': xlsx_helper,
               }
 
 
