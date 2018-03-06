@@ -27,9 +27,21 @@ def _chunks_of(max_chunk_size, list_to_chunk):
 
 
 def _create_write_file_object(func):
-    """
+    """Decorator for when writing data to files
     """
     def wrapper(*args, **kwargs):
+        """Takes the file passed in an converts it to a file type object of needed
+        Then writes the data to the file
+
+        Args:
+            0 (list of dicts): Dtaa to be saved
+            1 (str/file object): File to save the data to
+
+        Returns:
+            str/file object: If data is not being chunked
+            list of str/file object: If data is being chunked up
+
+        """
         args = list(args)
         file = args[1]
 
@@ -120,6 +132,15 @@ def _check_input_file(file, output_type):
 
 
 def _get_absolute_path(file):
+    """Gets the absolute path of a file path
+
+    Args:
+        file (str): File path as string
+
+    Returns:
+        str: Full expanded path to file
+
+    """
     return os.path.abspath(os.path.expanduser(file))
 
 
