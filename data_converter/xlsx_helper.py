@@ -1,5 +1,5 @@
 from openpyxl import load_workbook
-import utils
+from data_converter import utils
 
 
 def _list_from_xlsx_with_header(wb):
@@ -12,12 +12,13 @@ def _list_from_xlsx_with_header(wb):
         # iterate through each sheet_iteartor, and append the headers and row value of index i, from 0 to
         # to width of the sheet (number of columns)
         sheet_data.append({sheet.title: [
-                { headers[i]: row[i].value for i in range(sheet_width) }
-                for row in sheet_iterator
-            ]
+            {headers[i]: row[i].value for i in range(sheet_width)}
+            for row in sheet_iterator
+        ]
         })
 
     return sheet_data
+
 
 def _list_from_xlsx_without_header(wb):
     sheet_data = []
@@ -27,10 +28,10 @@ def _list_from_xlsx_without_header(wb):
         # iterate through each sheet_iteartor, and append the headers and row value of index i, from 0 to
         # to width of the sheet (number of columns)
         sheet_data.append({sheet.title: [
-                    [ cell.value for cell in row ]
-                    for row in sheet_iterator
-                ]
-            })
+            [cell.value for cell in row]
+            for row in sheet_iterator
+        ]
+        })
 
     return sheet_data
 
@@ -45,6 +46,7 @@ def read_file(input_file, header=True):
     sheet_data = _list_from_xlsx_with_header(wb) if header else _list_from_xlsx_without_header(wb)
 
     return sheet_data
+
 
 def write_file():
     pass
