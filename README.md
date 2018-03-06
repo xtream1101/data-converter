@@ -78,6 +78,7 @@ data = data_converter.csv_helper.write_file([[1,2,3],[4,5,6]], StringIO(), heade
 
 ```
 
+
 #### Arguments for each file type
 - **json**
     - **Reading/Converting from**
@@ -101,3 +102,7 @@ data = data_converter.csv_helper.write_file([[1,2,3],[4,5,6]], StringIO(), heade
 - json
 - csv
 - xlsx
+
+
+### Known limitations
+- Writing xlsx files does not support StringIO like objects, this is a limitation with the lib `pyexcelerate`

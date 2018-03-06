@@ -55,6 +55,7 @@ def create_write_file_object(func):
                 save_file = file
 
             args[1] = save_file
+            kwargs['file_path'] = file  # Just so the function still has access to the original file name
             func(*args, **kwargs)
 
             if is_file_path is True:
@@ -72,8 +73,10 @@ def create_write_file_object(func):
                     full_path = _get_absolute_path(file)
                     ext = '.' + _get_file_ext(file)
                     save_file_name = full_path.replace(ext, '_' + str(i) + ext)
+                    kwargs['file_path'] = full_path  # Just so the function still has access to the original file name
                     save_file = open(save_file_name, 'w')
                 else:
+                    kwargs['file_path'] = file  # Just so the function still has access to the original file name
                     save_file = file.copy()
 
                 args[0] = chunk
