@@ -1,6 +1,10 @@
 from openpyxl import load_workbook
+from pyexcelerate import Workbook
 from data_converter import utils
 
+# ============== #
+# Read Functions #
+# ============== #
 
 def _list_from_xlsx_with_header(wb):
     sheet_data = []
@@ -48,17 +52,13 @@ def read_file(input_file, header=True):
     return sheet_data
 
 
+
+# =============== #
+# Write Functions #
+# =============== #
+
 def write_file():
     pass
-
-
-if __name__ == "__main__":
-    print(read_file("/Users/richard/Desktop/test.xlsx"))
-    print(read_file("/Users/richard/Desktop/test.xlsx", header=False))
-
-from pyexcelerate import Workbook
-from data_converter import utils
-
 
 def read_file(input_file, has_header=True, **kwargs):
     return True
