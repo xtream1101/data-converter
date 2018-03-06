@@ -1,12 +1,54 @@
 import os
-from data_converter import csv_helper
-from data_converter import json_helper
 
 supported_file_types = ['json', 'csv']
 
-converters = {'csv': csv_helper,
-              'json': json_helper,
-              }
+
+def _create_file_object(action, file_index):
+    """
+
+    Args:
+        action (str): Either read or write, used to check the object attributes
+        file_index (int): The index of the file arg to work with
+    """
+    if action == 'write':
+        action_attr = 'write'
+        action_open = 'w'
+    else:
+        action_attr = 'read'
+        action_open = 'r'
+
+    def decorator(func):
+        """
+        """
+        def wrapper(*args, **kargs):
+            args = list(args)
+            file = args[file_index]
+
+            if isinstance(file, str):
+                is_file_path = True
+            elif hasattr(file, action_attr):
+                is_file_path = False
+            else:
+                raise ValueError("Invalid file path or object")
+
+            if is_file_path is True:
+                # Create a file object if one was not passed in
+                file = _get_absolute_path(file)
+                save_file = open(file, action_open)
+            else:
+                save_file = file
+
+            args[file_index] = save_file
+            func(*args, **kargs)
+
+            if is_file_path is True:
+                save_file.close()
+                return file
+
+            return save_file
+
+        return wrapper
+    return decorator
 
 
 def _check_input_file(file, output_type):

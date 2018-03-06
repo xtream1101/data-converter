@@ -32,6 +32,29 @@ def test_csv_read_list_no_headers():
 #
 # Writes
 #
+def test_output_return_is_path():
+    content = [{'a': 1, 'b': 'bee', 'c': 3.14},
+               {'a': 2, 'b': 'butterfly', 'c': 6.28}]
+    with tempfile.NamedTemporaryFile() as f:
+        tmp_file = data_converter.csv_helper.write_file(content, f.name)
+
+    assert isinstance(tmp_file, str)
+
+
+def test_output_return_is_file():
+    try:
+        from StringIO import StringIO
+    except ImportError:
+        from io import StringIO
+
+    content = [{'a': 1, 'b': 'bee', 'c': 3.14},
+               {'a': 2, 'b': 'butterfly', 'c': 6.28}]
+
+    tmp_file = data_converter.csv_helper.write_file(content, StringIO())
+
+    assert hasattr(tmp_file, 'write')
+
+
 def test_csv_write_dict_with_headers():
     content = [{'a': 1, 'b': 'bee', 'c': 3.14},
                {'a': 2, 'b': 'butterfly', 'c': 6.28}]

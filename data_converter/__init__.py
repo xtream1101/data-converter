@@ -1,9 +1,23 @@
+import sys
 import argparse
 from data_converter import utils
+from data_converter import csv_helper
+from data_converter import json_helper
+
+converters = {'csv': csv_helper,
+              'json': json_helper,
+              }
 
 
-def convert(input_file, to_format):
+def convert(input_file, to, output_file=None):
     """Convert input_file into another format
+
+    Args:
+        input_file (str): File path of the file to convert
+        to (str): Format to convert the file to
+
+    Keyword Args:
+        output_file (str): Where to save the converted data to, if None it wil output to stdout
 
     Raises:
         FileNotFoundError & UserWarning: from the function `_check_input_file`
@@ -13,20 +27,24 @@ def convert(input_file, to_format):
         str: Absolute file path of output file
 
     """
-    if not utils._is_file_ext_supported(to_format):
-        raise ValueError("File extension is not supported: {ext}".format(ext=to_format))
+    if not utils._is_file_ext_supported(to):
+        raise ValueError("File extension is not supported: {ext}".format(ext=to))
 
-    input_file = utils._check_input_file(input_file, to_format)
+    input_file = utils._check_input_file(input_file, to)
     input_ext = utils._get_file_ext(input_file)
 
     # Read in data
-    input_data = utils.converters[input_ext].read_file(input_file)
+    input_data = converters[input_ext].read_file(input_file)
 
     # Write out data
-    output_file = utils.rreplace(input_file, input_ext, to_format)
-    utils.converters[to_format].write_file(input_data, output_file)
+    if output_file is None:
+        # If not output path is set (not even a blank one), the stream the data to stdout
+        output_file = sys.stdout
+    elif output_file.strip() == '':
+        # If blank string, then output the file to the same path as the input just with the new ext
+        output_file = utils.rreplace(input_file, input_ext, to)
 
-    return output_file
+    return converters[to].write_file(input_data, output_file)
 
 
 def cli():
@@ -37,11 +55,15 @@ def cli():
 
     """
     parser = argparse.ArgumentParser(description='Convert data files')
+    parser.add_argument('-i', '--input-file', help='File to convert', required=True)
     parser.add_argument('-t', '--to', help='Output format', required=True)
-    parser.add_argument('input_file', help='File to convert')
+    parser.add_argument('-o', '--output-file', help='Output file', nargs='?')
     args = parser.parse_args()
 
     try:
-        print(convert(args.input_file, args.to))
+        output = convert(args.input_file, args.to, args.output_file)
+        if isinstance(output, str):
+            # Only print the output if it is the file path, not a file object
+            print(output)
     except (FileNotFoundError, UserWarning, ValueError) as e:
         parser.error(str(e))
