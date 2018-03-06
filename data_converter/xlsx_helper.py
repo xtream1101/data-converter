@@ -2,7 +2,6 @@ from openpyxl import load_workbook
 import utils
 
 
-
 def _list_from_xlsx_with_header(wb):
     sheet_data = []
 
