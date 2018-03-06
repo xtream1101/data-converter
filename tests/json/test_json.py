@@ -36,6 +36,20 @@ def test_json_read_list_of_lists():
 #
 # Writes
 #
+def test_output_chunk_1_line_each():
+    content = [{'a': 1, 'b': 'bee', 'c': 3.14},
+               {'a': 2, 'b': 'butterfly', 'c': 6.28}]
+
+    file_hashes = []
+    tmp_files = data_converter.json_helper.write_file(content, 'test_json_chunk_of_1.json', chunk_size=1)
+    for tmp_file in tmp_files:
+        file_hashes.append(get_file_hash(tmp_file))
+        os.remove(tmp_file)
+
+    assert file_hashes[0] == get_file_hash(_get_base_path('chunk_1_of_2.json'))
+    assert file_hashes[1] == get_file_hash(_get_base_path('chunk_2_of_2.json'))
+
+
 def test_output_return_is_path():
     content = [{'a': 1, 'b': 'bee', 'c': 3.14},
                {'a': 2, 'b': 'butterfly', 'c': 6.28}]
