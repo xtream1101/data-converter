@@ -26,7 +26,7 @@ def test_csv_read_list_no_headers():
     content = [['1', 'bee', '3.14'],
                ['2', 'butterfly', '6.28']]
     test_file = _get_base_path('csv_no_header.csv')
-    assert data_converter.csv_helper.read_file(test_file, header=False) == content
+    assert data_converter.csv_helper.read_file(test_file, has_header=False) == content
 
 
 #
@@ -91,7 +91,7 @@ def test_csv_write_dict_no_headers():
     content = [{'a': 1, 'b': 'bee', 'c': 3.14},
                {'a': 2, 'b': 'butterfly', 'c': 6.28}]
     with tempfile.NamedTemporaryFile() as f:
-        tmp_file = data_converter.csv_helper.write_file(content, f.name, header=False)
+        tmp_file = data_converter.csv_helper.write_file(content, f.name, has_header=False)
         tmp_file_hash = get_file_hash(tmp_file)
 
     assert tmp_file_hash == get_file_hash(_get_base_path('csv_no_header.csv'))
@@ -101,7 +101,7 @@ def test_csv_write_list_no_headers():
     content = [[1, 'bee', 3.14],
                [2, 'butterfly', 6.28]]
     with tempfile.NamedTemporaryFile() as f:
-        tmp_file = data_converter.csv_helper.write_file(content, f.name, header=False)
+        tmp_file = data_converter.csv_helper.write_file(content, f.name, has_header=False)
         tmp_file_hash = get_file_hash(tmp_file)
 
     assert tmp_file_hash == get_file_hash(_get_base_path('csv_no_header.csv'))

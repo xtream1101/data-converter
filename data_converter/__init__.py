@@ -3,9 +3,11 @@ import argparse
 from data_converter import utils
 from data_converter import csv_helper
 from data_converter import json_helper
+from data_converter import xlsx_helper
 
 converters = {'csv': csv_helper,
               'json': json_helper,
+              'xlsx': xlsx_helper,
               }
 
 

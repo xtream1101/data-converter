@@ -6,7 +6,7 @@ Convert data files between different formats
 
 
 ### Install
-Python: `pip install data-converter`
+Python: `pip install data-converter`  
 Brew: `coming soon...`
 
 
@@ -91,6 +91,13 @@ data = data_converter.csv_helper.write_file([[1,2,3],[4,5,6]], StringIO(), heade
     - **Writing/Converting to**
         - **has_header** _(bool)_ - _Default: True_ - Write first row to the csv as the header
 
+- **xlsx**
+    - **Reading/Converting from**
+        - **has_header** _(bool)_ - _Default: True_ - The first row in the csv is the header
+    - **Writing/Converting to**
+        - **has_header** _(bool)_ - _Default: True_ - Write first row to the csv as the header
+
 ### Currently supported file types
 - json
 - csv
+- xlsx

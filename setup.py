@@ -25,7 +25,8 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Utilities",
     ],
-    install_requires=['pyexcelerate'],
+    install_requires=['pyexcelerate==0.7.2',
+                      ],
     entry_points={
         'console_scripts': [
             'data-converter=data_converter:cli',

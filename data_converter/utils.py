@@ -1,14 +1,6 @@
 import os
-from data_converter import csv_helper
-from data_converter import json_helper
-from data_converter import xlsx_helper
 
 supported_file_types = ['json', 'csv', 'xlsx']
-
-converters = {'csv': csv_helper,
-              'json': json_helper,
-              'xlsx': xlsx_helper,
-              }
 
 
 def _chunks_of(max_chunk_size, list_to_chunk):
@@ -26,7 +18,7 @@ def _chunks_of(max_chunk_size, list_to_chunk):
         yield list_to_chunk[i:i + max_chunk_size]
 
 
-def _create_write_file_object(func):
+def create_write_file_object(func):
     """Decorator for when writing data to files
     """
     def wrapper(*args, **kwargs):

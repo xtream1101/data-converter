@@ -1,8 +1,7 @@
 import os
-# import pytest
 import hashlib
 # import tempfile
-import data_converter
+# import data_converter
 
 
 def get_file_hash(file):

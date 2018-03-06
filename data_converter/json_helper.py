@@ -26,7 +26,7 @@ def read_file(input_file, **kwargs):
     return input_data
 
 
-@utils._create_write_file_object
+@utils.create_write_file_object
 def write_file(output_data, output_file, **kwargs):
     """Write a list of lists/dics to a json file
 

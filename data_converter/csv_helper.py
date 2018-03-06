@@ -2,14 +2,14 @@ import csv
 from data_converter import utils
 
 
-def read_file(input_file, header=True, **kwargs):
+def read_file(input_file, has_header=True, **kwargs):
     """Write a list of lists/dics to a csv file
 
     Args:
         output_data (list): list of lists/dicts of data to be saved
 
     Named Args:
-        header (bool): Default `True`. If the csv file has a header
+        has_header (bool): Default `True`. If the csv file has a header
         **kwargs: Catches all other args that were passed but do not care about
 
     Returns:
@@ -22,7 +22,7 @@ def read_file(input_file, header=True, **kwargs):
 
     input_data = None
     with open(utils._get_absolute_path(input_file)) as csv_file:
-        if header is False:
+        if has_header is False:
             input_data = list(csv.reader(csv_file))
         else:
             input_data = []
@@ -33,8 +33,8 @@ def read_file(input_file, header=True, **kwargs):
     return input_data
 
 
-@utils._create_write_file_object
-def write_file(output_data, output_file, header=True, **kwargs):
+@utils.create_write_file_object
+def write_file(output_data, output_file, has_header=True, **kwargs):
     """Write a list of lists/dics to a csv file
 
     Args:
@@ -42,14 +42,14 @@ def write_file(output_data, output_file, header=True, **kwargs):
         output_file (str/file): Path to output file. Or filetype object to write the data to
 
     Named Args:
-        header (bool): Default `True`. If the csv file has a header
+        has_header (bool): Default `True`. If the csv file has a header
         **kwargs: Catches all other args that were passed but do not care about
 
     Returns (via @utils._create_file_object):
         str/file: Absolute file path of the saved file or the file object. Depending what was passed in
 
     """
-    if header is False or isinstance(output_data[0], (list, tuple)):
+    if has_header is False or isinstance(output_data[0], (list, tuple)):
         writer = csv.writer(output_file)
         if isinstance(output_data[0], dict):
             # If trying to write a list of dicts, but do not want the header row
