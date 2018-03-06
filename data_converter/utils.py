@@ -11,6 +11,10 @@ converters = {'csv': csv_helper,
               }
 
 
+class FileNotFoundError(OSError):
+    pass
+
+
 def _create_file_object(action, file_index):
     """
 

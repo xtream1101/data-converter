@@ -7,7 +7,12 @@ from data_converter import xlsx_helper
 
 converters = {'csv': csv_helper,
               'json': json_helper,
+              'xlsx': xlsx_helper
               }
+
+
+class FileNotFoundError(OSError):
+    pass
 
 
 def convert(input_file, to, output_file=None):
