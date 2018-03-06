@@ -2,11 +2,11 @@ from pyexcelerate import Workbook
 from data_converter import utils
 
 
-def read_file(input_file, header=True, **kwargs):
+def read_file(input_file, has_header=True, **kwargs):
     return True
 
 
-def write_file(output_data, output_file, header=True, **kwargs):
+def write_file(output_data, output_file, has_header=True, **kwargs):
     """Write a list of lists/dics to an excel file
 
     Args:
@@ -34,7 +34,7 @@ def write_file(output_data, output_file, header=True, **kwargs):
         output = [d.values() for d in output_data]
 
         # if they want a header, create it from the dict keys
-        if header:
+        if has_header:
             output[0:0] = [output_data[0].keys()]
 
         wb = Workbook()
