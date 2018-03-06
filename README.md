@@ -16,6 +16,7 @@ Brew: `coming soon...`
 ```
 $ data-converter -h
 usage: data-converter [-h] -i INPUT_FILE -t TO [-o [OUTPUT_FILE]]
+                      [-c CHUNK_SIZE]
 
 Convert data files
 
@@ -26,6 +27,8 @@ optional arguments:
   -t TO, --to TO        Output format
   -o [OUTPUT_FILE], --output-file [OUTPUT_FILE]
                         Output file
+  -c CHUNK_SIZE, --chunk-size CHUNK_SIZE
+                        Max rows per output file
 ```
 
 Examples:
@@ -46,6 +49,8 @@ If you do not even use the argument `-o`, then the converted data will be sent t
 import data_converter
 
 # The output file argument in any example can either be a path string a file object, or nothing (terminal output).
+# Pass in the keyword arg `chunk_size=n` (n is the num of rows to store in each file)
+# to any `convert` or `write_file` function. This will return a list of files that the data is chunked up into.
 
 # Convert one format to another. Ex. csv --> json
 output_path = data_converter.convert('/some/data/file.csv', 'json', '/new_file.json')
