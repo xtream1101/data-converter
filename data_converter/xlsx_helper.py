@@ -6,6 +6,7 @@ from data_converter import utils
 # Read Functions #
 # ============== #
 
+
 def _list_from_xlsx_with_header(wb):
     sheet_data = []
 
@@ -52,16 +53,9 @@ def read_file(input_file, header=True):
     return sheet_data
 
 
-
 # =============== #
 # Write Functions #
 # =============== #
-
-def write_file():
-    pass
-
-def read_file(input_file, has_header=True, **kwargs):
-    return True
 
 
 def write_file(output_data, output_file, has_header=True, **kwargs):

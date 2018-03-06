@@ -1,14 +1,15 @@
 import os
+import data_converter
 from expected_outputs import (OUTPUT_LIST, SHEET1, SHEET2, HEADERLESS_OUTPUT_LIST,
                               HEADERLESS_SHEET1, HEADERLESS_SHEET2)
 # import pytest
 import hashlib
 # import tempfile
-import data_converter
 
 # ================ #
 # Helper Functions #
 # ================ #
+
 
 def _get_base_path(file_name):
     return os.path.join('tests', 'xlsx', file_name)
@@ -20,6 +21,7 @@ def get_file_hash(file):
 # =================== #
 # Test Read Functions #
 # =================== #
+
 
 def test_read_xlsx_with_header():
     assert data_converter.xlsx_helper.read_file(_get_base_path('test.xlsx')) == OUTPUT_LIST
