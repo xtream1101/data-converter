@@ -1,7 +1,6 @@
 import os
 import data_converter
-from expected_outputs import (OUTPUT_LIST, SHEET1, SHEET2, HEADERLESS_OUTPUT_LIST,
-                              HEADERLESS_SHEET1, HEADERLESS_SHEET2)
+from expected_outputs import SHEET1, SHEET2, HEADERLESS_SHEET1, HEADERLESS_SHEET2
 # import pytest
 import hashlib
 # import tempfile
@@ -24,23 +23,26 @@ def get_file_hash(file):
 
 
 def test_read_xlsx_with_header():
-    assert data_converter.xlsx_helper.read_file(_get_base_path('test.xlsx')) == OUTPUT_LIST
+    assert data_converter.xlsx_helper.read_file(_get_base_path('test.xlsx')) == SHEET1
 
 
 def test_read_xlsx_without_header():
-    assert data_converter.xlsx_helper.read_file(_get_base_path('test.xlsx'), header=False) == HEADERLESS_OUTPUT_LIST
+    assert data_converter.xlsx_helper.read_file(_get_base_path('test.xlsx'), header=False) == HEADERLESS_SHEET1
 
 
 def test_xlsx_with_header_sheet_vals():
-    data = data_converter.xlsx_helper.read_file(_get_base_path('test.xlsx'))
-    assert data['Sheet1'] == SHEET1
-    assert data["Price's super cool second sheet"] == SHEET2
+    sheet1 = data_converter.xlsx_helper.read_file(_get_base_path('test.xlsx'), 'Sheet1')
+    sheet2 = data_converter.xlsx_helper.read_file(_get_base_path('test.xlsx'), "Price's super cool second sheet")
+    assert sheet1 == SHEET1
+    assert sheet2 == SHEET2
 
 
 def test_xlsx_without_header_sheet_vals():
-    data = data_converter.xlsx_helper.read_file(_get_base_path('test.xlsx'), header=False)
-    assert data['Sheet1'] == HEADERLESS_SHEET1
-    assert data["Price's super cool second sheet"] == HEADERLESS_SHEET2
+    sheet1 = data_converter.xlsx_helper.read_file(_get_base_path('test.xlsx'), 'Sheet1', header=False)
+    sheet2 = data_converter.xlsx_helper.read_file(_get_base_path('test.xlsx'), "Price's super cool second sheet",
+                                                  header=False)
+    assert sheet1 == HEADERLESS_SHEET1
+    assert sheet2 == HEADERLESS_SHEET2
 
 
 # ==================== #
