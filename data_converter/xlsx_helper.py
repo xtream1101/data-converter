@@ -12,6 +12,7 @@ def write_file(output_data, output_file, has_header=True, **kwargs):
     Args:
         output_data (list): list of lists/dicts of data to be saved
         output_file (str): Path to xlsx file
+        has_header (bool): if the output file should have a header
 
     Named Args:
         **kwargs: Catches all other args that were passed but do not care about
