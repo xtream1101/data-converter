@@ -10,9 +10,10 @@ converters = {'csv': csv_helper,
               'xlsx': xlsx_helper
               }
 
-
-class FileNotFoundError(OSError):
-    pass
+try:
+    FileNotFoundError
+except NameError:
+    FileNotFoundError = IOError
 
 
 def convert(input_file, to, output_file=None):

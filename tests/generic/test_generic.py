@@ -2,8 +2,10 @@ import pytest
 import data_converter
 
 
-class FileNotFoundError(OSError):
-    pass
+try:
+    FileNotFoundError
+except NameError:
+    FileNotFoundError = IOError
 
 
 def test_file_not_found():

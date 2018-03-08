@@ -2,8 +2,10 @@ import os
 supported_file_types = ['json', 'csv', 'xlsx']
 
 
-class FileNotFoundError(OSError):
-    pass
+try:
+    FileNotFoundError
+except NameError:
+    FileNotFoundError = IOError
 
 
 def _create_file_object(action, file_index):
