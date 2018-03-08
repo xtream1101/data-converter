@@ -133,8 +133,3 @@ def write_file(output_data, output_file, has_header=True, **kwargs):
         wb.save(output_file)
 
     return output_file
-
-
-if __name__ == "__main__":
-    print(read_file("/Users/richard/dev/round_table/data-converter/tests/xlsx/test.xlsx"))
-    print(read_file("/Users/richard/dev/round_table/data-converter/tests/xlsx/test.xlsx", header=False))
