@@ -25,7 +25,13 @@ def _list_from_xlsx_with_header(wb, sheet_name):
     else:
         sheet = wb[wb.sheetnames[0]]
 
-    headers = [cell.value for cell in sheet.iter_rows(min_row=1, max_row=1).next()]
+    try:
+        # Python 3
+        headers = [cell.value for cell in sheet.iter_rows(min_row=1, max_row=1).next()]
+    except AttributeError:
+        # Python 2.7
+        headers = [cell.value for cell in next(sheet.iter_rows(min_row=1, max_row=1))]
+
     sheet_width = len(headers)
     sheet_iterator = sheet.iter_rows(min_row=2)
 
