@@ -93,7 +93,8 @@ def read_file(input_file, sheet_name=None, header=True, **kwargs):
         raise ValueError("Expecting a xlsx file, but got: {ext}".format(ext=ext))
 
     wb = load_workbook(filename=input_file, data_only=True, read_only=True)
-    sheet_data = _list_from_xlsx_with_header(wb, sheet_name) if header else _list_from_xlsx_without_header(wb, sheet_name)
+    sheet_data = _list_from_xlsx_with_header(wb, sheet_name) if header \
+        else _list_from_xlsx_without_header(wb, sheet_name)
 
     return sheet_data
 

@@ -38,8 +38,9 @@ def test_xlsx_with_header_sheet_vals():
 
 
 def test_xlsx_without_header_sheet_vals():
-    sheet1 = data_converter.xlsx_helper.read_file(_get_base_path('test.xlsx'), 'Sheet1', header=False)
-    sheet2 = data_converter.xlsx_helper.read_file(_get_base_path('test.xlsx'), "Price's super cool second sheet",
+    sheet1 = data_converter.xlsx_helper.read_file(_get_base_path('test_headerless.xlsx'), 'Sheet1', header=False)
+    sheet2 = data_converter.xlsx_helper.read_file(_get_base_path('test_headerless.xlsx'),
+                                                  "Price's super cool second sheet",
                                                   header=False)
     assert sheet1 == HEADERLESS_SHEET1
     assert sheet2 == HEADERLESS_SHEET2
