@@ -27,7 +27,8 @@ def test_read_xlsx_with_header():
 
 
 def test_read_xlsx_without_header():
-    assert data_converter.xlsx_helper.read_file(_get_base_path('test.xlsx'), header=False) == HEADERLESS_SHEET1
+    assert data_converter.xlsx_helper.read_file(_get_base_path('test_headerless.xlsx'),
+                                                header=False) == HEADERLESS_SHEET1
 
 
 def test_xlsx_with_header_sheet_vals():
